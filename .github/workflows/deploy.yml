@@ -17,7 +17,7 @@ jobs:
           
       - name: Build and Copy Assets
         run: |
-          npx parcel build index.html
+          npx parcel build index.html --public-url .
           cp -r images dist/ 2>/dev/null || true
           cp -r fonts dist/ 2>/dev/null || true
 
