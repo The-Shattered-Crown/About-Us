@@ -1,5 +1,9 @@
 name: Build & Deploy
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 on:
   push:
     branches: [ main ]
@@ -13,13 +17,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          
+          node-version: 24
+
       - name: Build and Copy Assets
         run: |
           npx parcel build index.html --public-url .
           cp -r images dist/ 2>/dev/null || true
           cp -r fonts dist/ 2>/dev/null || true
+          echo "${{ secrets.INDEX }}" > "dist/${{ secrets.INDEX }}.txt"
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
@@ -34,6 +39,17 @@ jobs:
       id-token: write
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Submit to IndexNow
+        uses: jakob-bagterp/index-now-submit-sitemap-urls-action@v1
+        with:
+          host: the-shattered-crown.github.io
+          api_key: ${{ secrets.INDEX }}
+          api_key_location: https://the-shattered-crown.github.io/About-Us/${{ secrets.INDEX }}.txt
+          urls: |
+              https://the-shattered-crown.github.io/About-Us/index.html
