@@ -14,16 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: 24
+          bun-version: latest
 
       - name: Build and Copy Assets
         run: |
-          npx parcel build index.html --public-url .
-          cp -r images dist/ 2>/dev/null || true
-          cp -r fonts dist/ 2>/dev/null || true
+          bun run build
           echo "${{ secrets.INDEX }}" > "dist/${{ secrets.INDEX }}.txt"
 
       - name: Upload Artifact

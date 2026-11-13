@@ -1,0 +1,11 @@
+{
+  "name": "about-us",
+  "private": true,
+  "source": "src/main/index.html",
+  "scripts": {
+    "build": "bunx parcel build --public-url ."
+  },
+  "devDependencies": {
+    "parcel": "latest"
+  }
+}
