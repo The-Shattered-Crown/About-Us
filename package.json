@@ -7,6 +7,6 @@
     "package": "bunx parcel build --public-url ."
   },
   "devDependencies": {
-    "parcel": "latest"
+    "live-server": "^1.2.2"
   }
 }
