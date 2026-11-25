@@ -3,7 +3,8 @@
   "private": true,
   "source": "src/main/index.html",
   "scripts": {
-    "build": "bunx parcel build --public-url ."
+    "dev": "bunx live-server src",
+    "package": "bunx parcel build --public-url ."
   },
   "devDependencies": {
     "parcel": "latest"
