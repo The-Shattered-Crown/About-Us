@@ -4,7 +4,7 @@
   "source": "src/main/index.html",
   "scripts": {
     "dev": "bunx --silent live-server src --open=main/index.html",
-    "package": "bunx parcel build --public-url ."
+    "package": "bunx parcel build --public-url . --no-source-maps"
   },
   "devDependencies": {
     "live-server": "^1.2.2"
